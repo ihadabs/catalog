@@ -1,0 +1,62 @@
+<html>
+
+<style>
+
+    a {
+        color: #0060B6;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #00A0C6;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .grey-text {
+        color: grey;
+    }
+
+</style>
+
+
+<h1>Catalog</h1>
+<br>
+<br>
+
+
+<div>
+
+    <h2>Categories</h2>
+
+    {% for category in categories %}
+
+        <a href="{{ url_for('show_category', category_name=category.name) }}">
+            {{ category.name }}
+        </a>
+        <br>
+
+    {% endfor %}
+
+
+
+    <br>
+    <br>
+    <br>
+
+    <a href="{{ url_for('create_item') }}">Add Item</a>
+    <h2>{{ category.name }} Items ({{ items|length }} items)</h2>
+
+    {% for item in items %}
+
+        <a href="{{ url_for('show_item', item_name=item.name, category_name=item.category.name) }}">
+            {{ item.name }}
+        </a>
+        <br>
+
+    {% endfor %}
+
+</div>
+
+
+</html>

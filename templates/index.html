@@ -1,0 +1,80 @@
+<html>
+
+<style>
+
+    a {
+        color: #0060B6;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #00A0C6;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .grey-text {
+        color: grey;
+    }
+
+</style>
+
+
+<h1>Catalog</h1>
+<br>
+
+{% if not is_in %}
+ <button id="size" onclick="window.location.href='{{ url_for( 'show_login') }}';" style="opacity: 1; z-index: 10000; left: 0px; top: 0px;
+                   cursor: pointer; display: block;
+                   outline: 0px; width: 116px; height: 36px;
+                    background: black; color: white; font-weight: bold;
+                     text-align: center; text-decoration: none" >
+            Login
+        </button>
+{% endif %}
+{% if is_in %}
+ <button id="size" onclick="window.location.href='{{ url_for( 'gdisconnect') }}';" style="opacity: 1; z-index: 10000; left: 0px; top: 0px;
+                   cursor: pointer; display: block;
+                   outline: 0px; width: 116px; height: 36px;
+                    background: black; color: white; font-weight: bold;
+                     text-align: center; text-decoration: none" >
+            Logout
+        </button>
+{% endif %}
+
+<br>
+<div>
+
+    <h2>Categories</h2>
+
+    {% for category in categories %}
+
+        <a href="{{ url_for('show_category', category_name=category.name) }}">
+            {{ category.name }}
+        </a>
+        <br>
+
+    {% endfor %}
+
+
+
+    <br>
+    <br>
+    <br>
+
+    <a href="{{ url_for('create_item') }}">Add Item</a>
+    <h2>Latest Items</h2>
+
+    {% for item in latest_items %}
+
+        <a href="{{ url_for('show_item', item_name=item.name, category_name=item.category.name) }}">
+            {{ item.name }} <span class="grey-text">({{ item.category.name }})</span>
+        </a>
+        <br>
+
+    {% endfor %}
+
+</div>
+
+
+</html>
