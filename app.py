@@ -145,6 +145,7 @@ def gconnect():
 
 @app.route('/gdisconnect')
 def gdisconnect():
+    """Disconnect user"""
     access_token = login_session.get('access_token')
     if access_token is None:
         print('Access Token is None')
@@ -206,13 +207,14 @@ def get_user_id(email):
         user = db_session.query(User).filter_by(email=email).one()
         return user.id
     except:
-        """PEP8 gives warning here but is needed."""
+        """PEP8 gives warning here (for except) but it's needed."""
         return None
 
 
 @app.route('/')
 @app.route('/catalog')
 def show_index():
+    """Show the main page (all categories and latest added items)"""
     is_in = 'email' in login_session
     print(is_in)
     categories = db_session.query(Category).all()
@@ -226,6 +228,7 @@ def show_index():
 
 @app.route('/catalog/<string:category_name>/items')
 def show_category(category_name):
+    """Show the categories and the items for selected category"""
     is_in = 'email' in login_session
     categories = db_session.query(Category).all()
     category = db_session.query(Category).filter_by(name=category_name).one()
@@ -240,6 +243,7 @@ def show_category(category_name):
 
 @app.route('/catalog/<string:category_name>/<string:item_name>/')
 def show_item(category_name, item_name):
+    """Show the page for an Item from the database and it's info"""
     category = db_session.query(Category).filter_by(name=category_name).one()
     item = db_session.query(Item)\
         .filter_by(name=item_name, category_id=category.id).one()
@@ -248,6 +252,7 @@ def show_item(category_name, item_name):
 
 @app.route('/catalog/new', methods=['GET', 'POST'])
 def create_item():
+    """Creating a new Item to the database"""
     if 'email' not in login_session:
         return redirect('/login')
     if request.method == 'POST':
@@ -265,6 +270,7 @@ def create_item():
 
 @app.route('/catalog/<string:item_name>/edit', methods=['GET', 'POST'])
 def edit_item(item_name):
+    """Editing an Item in the database"""
     if 'email' not in login_session:
         return redirect('/login')
     item_to_be_edited = db_session.query(Item).filter_by(name=item_name).one()
@@ -291,6 +297,7 @@ def edit_item(item_name):
 
 @app.route('/catalog/<string:item_name>/delete', methods=['GET', 'POST'])
 def delete_item(item_name):
+    """Deleting an Item from the database"""
     if 'email' not in login_session:
         return redirect('/login')
     item_to_be_deleted = db_session.query(Item).filter_by(name=item_name).one()
@@ -311,6 +318,7 @@ def delete_item(item_name):
 
 @app.route('/catalog.json')
 def catalog_json():
+    """JSON for all categories and their items"""
     categories = db_session.query(Category).all()
     categories_dicts = []
     for category in categories:
