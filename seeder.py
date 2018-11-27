@@ -1,7 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.sql import func
-from database_setup import Base, Category, Item
+from database_setup import Base, Category, Item, User
 
 engine = create_engine('sqlite:///catalog.db')
 # Bind the engine to the metadata of the Base class so that the
@@ -17,6 +16,11 @@ DBSession = sessionmaker(bind=engine)
 # revert all of them back to the last commit by calling
 # session.rollback()
 session = DBSession()
+
+
+user = User(email='i@hadi.co')
+session.add(user)
+session.commit()
 
 
 category1 = Category(name='Soccer')
@@ -42,10 +46,10 @@ session.commit()
 category5 = Category(name='Snowboarding')
 session.add(category5)
 session.commit()
-item1 = Item(name='Goggles', category=category5)
+item1 = Item(name='Goggles', category=category5, user=user)
 session.add(item1)
 session.commit()
-item2 = Item(name='Snowboard', category=category5)
+item2 = Item(name='Snowboard', category=category5, user=user)
 session.add(item2)
 session.commit()
 
@@ -70,4 +74,4 @@ session.add(category9)
 session.commit()
 
 
-print("Seeded ^-")
+print("You are good to go ^-")
