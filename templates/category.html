@@ -18,9 +18,27 @@
 
 <h1>Catalog</h1>
 <br>
+
+
+{% if not is_in %}
+ <button id="size" onclick="window.location.href='{{ url_for( 'show_login') }}';" style="opacity: 1; z-index: 10000; left: 0px; top: 0px;
+                   cursor: pointer; display: block;
+                   outline: 0px; width: 116px; height: 36px;
+                    background: black; color: white; font-weight: bold;
+                     text-align: center; text-decoration: none" >
+            Login
+        </button>
+{% endif %}
+{% if is_in %}
+ <button id="size" onclick="window.location.href='{{ url_for( 'gdisconnect') }}';" style="opacity: 1; z-index: 10000; left: 0px; top: 0px;
+                   cursor: pointer; display: block;
+                   outline: 0px; width: 116px; height: 36px;
+                    background: black; color: white; font-weight: bold;
+                     text-align: center; text-decoration: none" >
+            Logout
+        </button>
+{% endif %}
 <br>
-
-
 <div>
 
     <h2>Categories</h2>
