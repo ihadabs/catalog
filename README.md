@@ -12,6 +12,8 @@
     1. open app.py
     2. go to the end of the file 
     3. change '0.0.0.0' => 'localhost'
+    4. save & close
+    5. python3 app.py
 5. Open the browser and open localhost:5000/
 6. Enjoy
 
